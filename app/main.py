@@ -7,6 +7,9 @@ from .config import settings
 
 app = FastAPI()
 
+
+
+
 module.Base.metadata.create_all(bind=engine)
 
 
