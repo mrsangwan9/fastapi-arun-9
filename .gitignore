@@ -1,0 +1,6 @@
+client/
+.env
+
+__pycache__
+.python_api_env/
+.app/__pycache__

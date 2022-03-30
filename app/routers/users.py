@@ -21,11 +21,12 @@ def create_users(newuser:schemas.createusers,db:Session= Depends(get_db)):
     
     created = module.Users(
         **newuser.dict())
-    if db.query(module.Users).filter(module.Users.username==created.username):
-        raise HTTPException(status_code=status.HTTP_226_IM_USED,detail="username already used..")
+    
     db.add(created)
     db.commit()
     db.refresh(created)
+    if db.query(module.Users).filter(module.Users.username==created.username):
+        raise HTTPException(status_code=status.HTTP_226_IM_USED,detail="username already used..")
     return created
 
 

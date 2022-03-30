@@ -1,12 +1,11 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-import psycopg2
-from psycopg2.extras import RealDictCursor
-import time
+from .config import settings
 
 
-SQLALCHEMY_DATABASE_ULR = 'postgresql://postgres:ilceditw@localhost/fastapi'
+SQLALCHEMY_DATABASE_ULR = f'postgresql://{settings.DATABASE_USERNAME}:{settings.DATABASE_PASSWORD}@{settings.DATABASE_HOSTNAME}:{settings.DATABASE_PORT}/{settings.DATABASE_NAME}'
+
 
 engine = create_engine(SQLALCHEMY_DATABASE_ULR )
 
@@ -19,20 +18,23 @@ def get_db():
         yield db
     finally:
         db.close()
-while True:
-    try:
-        conn =  psycopg2.connect(
-                                host="localhost",
-                                database="fastapi",
-                                user="postgres",
-                                password="ilceditw",
-                                port=5432,
-                                cursor_factory=RealDictCursor
-                                
-                                )
-        print("connected to database...")
-        cur = conn.cursor()# change data into python dictionary..
-        break
-    except Exception as error:
-                print(error)# error if not connected to server..
-                time.sleep(2)
+#while True:
+  #  try:
+  #import psycopg2
+#from psycopg2.extras import RealDictCursor
+#import time
+        #conn =  psycopg2.connect(
+         #                       host="localhost",
+         #                       database="fastapi",
+         #                       user="postgres",
+         #                       password="ilceditw",
+         #                       port=5432,
+        #                        cursor_factory=RealDictCursor
+        #                        
+        #                        )
+        #print("connected to database...")
+        #cur = conn.cursor()# change data into python dictionary..
+        #break
+        #excpt Exception as error:
+         #       print(error)# error if not connected to server..
+         #       time.sleep(2)
